@@ -10,7 +10,13 @@ class Conta:
        #...
        self._saldo -= valor
 
+
+    def mostrar_saldo(self):
+        return self._saldo
+
 conta = Conta("0001", 100)
 conta.depositar(100)
 print(conta._saldo)
 print(conta.nro_agencia)
+print(conta.mostrar_saldo())
+
