@@ -1,3 +1,4 @@
+import textwrap
 from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
 
@@ -79,10 +80,10 @@ class Conta:
 
 class ContaCorrente(Conta):
 
-    def __init__(self, numero, cliente, limite = 500, limite_saques = 3):
+    def __init__(self, numero, cliente, limite=500, limite_saques=3):
         super().__init__(numero, cliente)
-        self.limite = limite
-        self.limite_saques = limite_saques
+        self._limite = limite
+        self._limite_saques = limite_saques
     
     def sacar(self, valor):
         numero_saques = len([transacao for transacao in self.historico.trasacoes if transacao["tipo"] == Saque.__name__])
@@ -108,19 +109,18 @@ class ContaCorrente(Conta):
     
 class Historico:
     def __init__(self):
-        self.transacoes = []
+        self._transacoes = []
 
     @property
     def transacoes(self):
         return self._transacoes
-    
+
     def adicionar_transacao(self, transacao):
         self._transacoes.append(
             {
-            "tipo": transacao.__class__.__name__,
-            "valor": transacao.valor,
-            "data": datetime.now().strftime
-            ("%d-%m-%Y %H:%M:%s"),
+                "tipo": transacao.__class__.__name__,
+                "valor": transacao.valor,
+                "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s"),
             }
         )
 
@@ -163,6 +163,7 @@ class Deposito(Transacao):
             conta.historico.adiconar_transacao(self)
     
 def menu():
+
     menu = """\n
     ================ MENU ================
     [d]\tDepositar
