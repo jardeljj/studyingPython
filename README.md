@@ -1,2 +1,2 @@
 # studyingPython
- Estudos de Python DIO
+ Estudos de Python pela Dio e Senai
